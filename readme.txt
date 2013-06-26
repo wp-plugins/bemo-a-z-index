@@ -18,7 +18,7 @@ This is very beta at the moment, it has only been tested on query_posts() so don
 
 There are css styles that you can override in your own template.
 
-I'm available for paid support only should you need any.
+I'm available for paid support should you need any. By all means submit any bugs you find or feature requests to the Support area.
 
 == Installation ==
 This plugin is installed in the standard way.
