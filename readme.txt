@@ -31,6 +31,9 @@ Coming soon
 
 == Changelog ==
 
+= 0.0.2 =
+* I had added the package to the wrong place in Subversion. That's fixed now.
+
 = 0.0.1 =
 * The very first release
 
