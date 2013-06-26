@@ -27,9 +27,12 @@ This plugin is installed in the standard way.
 Coming soon.
 
 == Screenshots ==
-Coming soon
+
 
 == Changelog ==
+
+= 0.0.3 =
+* Added a screenshot
 
 = 0.0.2 =
 * I had added the package to the wrong place in Subversion. That's fixed now.
