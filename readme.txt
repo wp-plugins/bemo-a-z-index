@@ -29,7 +29,7 @@ This plugin is installed in the standard way.
 Coming soon.
 
 == Screenshots ==
-screenshot-1.png
+1. Here's a screenshot of it in action
 
 == Changelog ==
 
