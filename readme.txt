@@ -16,7 +16,7 @@ To use this plugin just put the shortcode [azindex] on the page you want to disp
 
 This is very beta at the moment, it has only been tested on query_posts() so don't go mad if it doesn't work for you. Let me know though.
 
-We are also working on a pro version, please let us know what you would like to see in that version.
+We are also working on a pro version, please let us know what you would like to see in that version here: http://www.bemoore.com/bemo-a-z-index-pro/.
 
 There are css styles that you can override in your own template.
 
@@ -32,6 +32,9 @@ Coming soon.
 1. Here's a screenshot of it in action
 
 == Changelog ==
+
+= 0.0.6 =
+* Added a link for feedback on the PRO version.
 
 = 0.0.5 =
 * Added a screenshot (again)
