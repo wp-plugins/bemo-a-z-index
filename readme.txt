@@ -29,9 +29,12 @@ This plugin is installed in the standard way.
 Coming soon.
 
 == Screenshots ==
-Coming soon
+screenshot-1.png
 
 == Changelog ==
+
+= 0.0.5 =
+* Added a screenshot (again)
 
 = 0.0.4 =
 * Now works with Custom Post types
