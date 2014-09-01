@@ -3,22 +3,19 @@ Contributors: bemoore
 Donate link:  http://www.bemoore.com/bemo-a-z-index-pro/
 Tags: A-Z Index, Index, Alphabetical Index, Letters Filter, A-Z filter, AZ Filter
 Requires at least: 3.0.1
-Tested up to: 3.9
+Tested up to: 3.9.7
 Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
+This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title. Note that it should be a page where existing posts are already displayed. If you want to display posts on a blank page, or allow users to enter custom posts and display those, or many other things, you need the pro version. You can get that here : http://www.bemoore.com/bemo-a-z-index-pro/. 
 
 == Description ==
 This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
 To use this plugin just put the shortcode [azindex] on the page you want to display an A-Z index on.
 
-This is very beta at the moment, it has only been tested on query_posts() so don't go mad if it doesn't work for you. Let me know though.
+Features are as follows:
 
-We have just released a pro version, more info here: http://www.bemoore.com/bemo-a-z-index-pro/.  Features are as follows:
-
-This is a PRO version of a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
 To use this plugin just put the shortcode [azindex] on the page you want to display an A-Z index on.
 This can then be used anywhere posts are being listed.
 
@@ -73,6 +70,9 @@ Coming soon.
 1. Here's a screenshot of it in action
 
 == Changelog ==
+
+= 0.0.8 =
+* Refactored to make it more like the PRO version.
 
 = 0.0.6 =
 * Added a link for feedback on the PRO version.
