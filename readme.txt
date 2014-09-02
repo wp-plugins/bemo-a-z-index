@@ -39,6 +39,13 @@ Coming soon
 
 == Changelog ==
 
+= 0.0.6 =
+* Added css file for proper styling
+
+= 0.0.5 =
+* Bug with protected function fixed
+* Added some FAQ items
+
 = 0.0.4 =
 * Now works with Custom Post types
 * Fix for later WP versions
