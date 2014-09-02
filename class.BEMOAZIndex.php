@@ -114,7 +114,7 @@ class BEMOAZIndex{
 		return true;
 	}
 
-	protected function get_simple_index($selected)
+	public function get_simple_index($selected)
 	{
 		if(!$this->validate($selected))
 			return false;
@@ -149,7 +149,7 @@ class BEMOAZIndex{
 		return $where;	
 	}
 				
-	protected function getWhere($where,$bemoazindex,$wpdb,$wp_query=null)
+	public function getWhere($where,$bemoazindex,$wpdb,$wp_query=null)
 	{
 		if(isset($bemoazindex)	)
 			$where .= " AND {$wpdb->posts}.post_title LIKE '{$bemoazindex}%' ";

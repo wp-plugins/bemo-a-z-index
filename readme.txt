@@ -13,20 +13,26 @@ This is a simple plugin that provides an A-Z index of the posts displayed on a p
 == Description ==
 This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
 To use this plugin just put the shortcode [azindex] on the page you want to display an A-Z index on.
-
-This is very beta at the moment, it has only been tested on query_posts() so don't go mad if it doesn't work for you. Let me know though.
-
-We are also working on a pro version, please let us know what you would like to see in that version.
-
-There are css styles that you can override in your own template.
-
-I'm available for paid support only should you need any.
+Please note: The page MUST have an existing post listing for this to work. We also have a pro version where you can automatically generate this: http://www.bemoore.com/product/bemo-a-z-index-pro/
 
 == Installation ==
 This plugin is installed in the standard way.
 
 == Frequently Asked Questions ==
-Coming soon.
+= How do I add it to a template? = 
+
+Just put the following code in your template:
+<?php echo do_shortcode('[azindex]'); ?>
+
+= I want a numeric listing or range listing (e.g. A-C D-F ....) =
+
+This is only available in the PRO version
+http://www.bemoore.com/product/bemo-a-z-index-pro/
+
+= I want an area where a user can enter items and then show it on any page = 
+
+This is only available in the PRO version
+http://www.bemoore.com/product/bemo-a-z-index-pro/
 
 == Screenshots ==
 Coming soon
