@@ -22,7 +22,7 @@ This plugin is installed in the standard way.
 = How do I add it to a template? = 
 
 Just put the following code in your template:
-<?php echo do_shortcode('[azindex]'); ?>
+`<?php echo do_shortcode('[azindex]'); ?>`
 
 = I want a numeric listing or range listing (e.g. A-C D-F ....) =
 
@@ -38,6 +38,9 @@ http://www.bemoore.com/product/bemo-a-z-index-pro/
 Coming soon
 
 == Changelog ==
+
+= 0.0.7 =
+* Fixed error in the FAQ
 
 = 0.0.6 =
 * Added css file for proper styling
