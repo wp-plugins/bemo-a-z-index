@@ -3,7 +3,7 @@
 Plugin Name: BEMO A-Z Index
 Plugin URI: http://www.bemoore.com/bemo-a-z-index-pro/
 Description: This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
-Version: 0.0.8
+Version: 0.0.9
 Author: Bob Moore (BeMoore Software)
 Author URI: http://www.bemoore.com
 License: GPL2
