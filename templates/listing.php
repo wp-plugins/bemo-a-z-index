@@ -1,8 +1,6 @@
 <?php
 		$records = new WP_Query( $args );
 		
-		echo $args;
-		
 		$record_count = 0;
 		if( $records->have_posts() ) 
 		{
