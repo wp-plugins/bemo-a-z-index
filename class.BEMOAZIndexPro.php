@@ -5,7 +5,6 @@ class BEMOAZIndexPro extends BEMOAZIndex
 {
 	protected $filter = '';
 	protected $filter_fields = array();
-	protected $category = '';
 	protected $post_type = 'post';
 	protected $post_count = 0;
 	protected $template = 'listing.php';
@@ -37,12 +36,6 @@ class BEMOAZIndexPro extends BEMOAZIndex
 	{
 		$this->filter = $filter;
 	}
-
-	public function setCategory($category)
-	{
-		$this->category = $category;
-		$this->customcategory = '';
-	}	
 
 	public function setPostType($post_type)
 	{

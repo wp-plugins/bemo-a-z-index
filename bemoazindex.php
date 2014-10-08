@@ -225,6 +225,4 @@ add_shortcode('azindexoutput','bemoazindex_get_output_filter');
 function bemoazindex_get_output_filter($attr){
 	return bemoazindex_get_output($attr); 
 }
-
-
 ?>

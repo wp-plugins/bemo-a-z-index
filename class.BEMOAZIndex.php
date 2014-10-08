@@ -2,6 +2,7 @@
 //Class to manage the bemoazindex better
 class BEMOAZIndex{
 	protected $index;
+	protected $category = '';
 
 	protected function getAllLink()
 	{
@@ -9,11 +10,20 @@ class BEMOAZIndex{
 
 		$base_url = $url;
 		
+		if($this->category != '*' && $this->category != '' )
+			$base_url .= '&azcategory='.$this->category;
+			
 		if($this->index == '')
 			return '<div class="all" >All</div>';
 		else
 			return '<div><a href="'.$base_url.'">All</a></div>';
 	}
+	
+	public function setCategory($category)
+	{
+		$this->category = $category;
+		$this->customcategory = '';
+	}		
 	
 	public function setIndex($index)
 	{
