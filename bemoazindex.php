@@ -3,7 +3,7 @@
 Plugin Name: BEMO A-Z Index
 Plugin URI: http://www.bemoore.com/bemo-a-z-index-pro/
 Description: This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
-Version: 0.0.9
+Version: 0.1.0
 Author: Bob Moore (BeMoore Software)
 Author URI: http://www.bemoore.com
 License: GPL2
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /********************************************************************/
 /* Include the core code												*/
 /********************************************************************/
-require_once('class.BEMOAZIndexPro.php');	//Specific to pro version
+require_once('class.BEMOAZIndex.php');	//Specific to pro version
 
 //Add WHERE addition to query 
 function bemoazindex_posts_where( $where, &$wp_query) {
@@ -40,7 +40,7 @@ function bemoazindex_posts_where( $where, &$wp_query) {
 	global $aztemplate;
 	global $azpostcount;
 	
-	$index = new BEMOAZIndexPro();	
+	$index = new BEMOAZIndex();	
 	
 	if(isset($azindex))
 		$index->setIndex($azindex);	
@@ -111,7 +111,7 @@ include('bemoazindex_custom_posts.php');
 /********************************************************************/
 function bemoazindex_get_index( $attr )
 {
-	$index = new BEMOAZIndexPro();	
+	$index = new BEMOAZIndex();	
 	
 	main_body_filter($index,$attr);
 	
@@ -127,7 +127,7 @@ function bemoazindex_get_output( $attr )
 {
 	$aztemplate = get_query_var('aztemplate');	
 	
-	$index = new BEMOAZIndexPro();	
+	$index = new BEMOAZIndex();	
 	
 	main_body_filter($index,$attr);
 	
@@ -142,7 +142,6 @@ function bemoazindex_get_output( $attr )
 
 function main_body_filter(&$index,$attr)
 {
-	//var_dump($attr);
 	$azindex = get_query_var('azindex');	
 	$azcategory = get_query_var('azcategory');	
 	$azposttype = get_query_var('azposttype');	
@@ -206,8 +205,7 @@ function set_index_vars()
 	$tmp = get_query_var('azpostcount');
 	
 	if($tmp != "")
-		$azpostcount = $tmp;		
-		
+		$azpostcount = $tmp;				
 }
 
 /********************************************************************/

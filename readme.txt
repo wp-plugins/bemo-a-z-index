@@ -46,9 +46,9 @@ If you have a custom post type, you can do the following:
 [azindex category="your-custom-category-name" posttype="my-post-type"]
 
 You can also specify pagination by putting in postcount parameter which represents a number of posts to break on, e.g.
-[azindex category="your-custom-category-name" posttype="my-post-type" postcount="4"]
+[azindexoutput postcount="4"]
 
-You can create your own templates for various uses. In your theme create a folder called BEMOAZIndexPro and copy the file templates/listing.php in there. You can clone this and then specify other template names as follows:
+You can create your own templates for various uses. In your theme create a folder called BEMOAZIndex and copy the file templates/listing.php in there. You can clone this and then specify other template names as follows:
 [azindexoutput template="bibliography.php"]
 
 There are css styles that you can override in your own template.
@@ -90,6 +90,9 @@ In order to get the format you want, you would need to know something about PHP 
 Coming soon
 
 == Changelog ==
+
+= 0.1.0 =
+* Fixed some bugs in the listings
 
 = 0.0.9 =
 * Added more info to the FAQ.

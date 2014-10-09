@@ -93,9 +93,9 @@ public function form( $instance ) {
 <label for="<?php echo $this->get_field_id( 'filter' ); ?>"><?php _e( $this->fieldnames['filter']['name'].':' ); ?></label> 
 <select class="widefat"  name="<?php echo $this->get_field_name( 'filter' ); ?>" id="<?php echo $this->get_field_id( 'filter' ); ?>" >
 <?php
-	require_once('class.BEMOAZIndexPro.php');
+	require_once('class.BEMOAZIndex.php');
 
-	$index = new BEMOAZIndexPro();
+	$index = new BEMOAZIndex();
 	$fields = $index->getFilterFields();
 	
 	foreach($fields as $k => $v)
