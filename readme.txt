@@ -91,6 +91,9 @@ Coming soon
 
 == Changelog ==
 
+= 0.1.1 =
+* Fixed some more bugs in the listings
+
 = 0.1.0 =
 * Fixed some bugs in the listings
 

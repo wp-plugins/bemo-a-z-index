@@ -3,6 +3,7 @@
 class BEMOAZIndex{
 	private static $index;
 	private static $category = '';
+	private static $customcategory = '';
 	private static $filter = '';
 	private static $filter_fields = array();
 	private static $post_type = 'post';
@@ -10,7 +11,7 @@ class BEMOAZIndex{
 	private static $template = 'listing.php';	
 	private static $initialized = false;
 	
-	private static function initialize()
+	public static function initialize()
     {
     	if (self::$initialized)
     		return;
@@ -119,16 +120,16 @@ class BEMOAZIndex{
 
 	public function get_simple_index()
 	{
-		if(!self::$validate())
+		if(!self::validate())
 			return "bemoazindex::get_simple_index() does not validate";
 			
-		$retval .= self::$openWrapper();
+		$retval .= self::openWrapper();
 
 		for($i=0;$i<26;$i++)
 		{
 			$letter[$i] = chr($i + 65);
 			
-			$href = self::$getBaseURL($letter[$i]);
+			$href = self::getBaseURL($letter[$i]);
 			
 			if(self::$index == "")	//Not selected -> link
 				$retval .= '<div><a href="'.$href.'">'.$letter[$i].'</a></div>';
@@ -138,8 +139,8 @@ class BEMOAZIndex{
 				$retval .= '<div><a href="'.$href.'">'.$letter[$i].'</a></div>';
 		}
 		
-		$retval .= self::$getAllLink(self::$index);
-		$retval .= self::$closeWrapper();
+		$retval .= self::getAllLink(self::$index);
+		$retval .= self::closeWrapper();
 		
 		return $retval;
 	}
@@ -302,11 +303,11 @@ class BEMOAZIndex{
 	{		
 		if(self::$category == '*')
 		{
-			return self::$getTaxonomyOutput();
+			return self::getTaxonomyOutput();
 		}
 		else if(self::$category != '')
 		{
-			return self::$getTaxonomyOutput(
+			return self::getTaxonomyOutput(
 			'category',
 			self::$category
 			);	
@@ -315,7 +316,7 @@ class BEMOAZIndex{
 
 	public function getOutput()
 	{
-		return self::$getCategoryOutput();			
+		return self::getCategoryOutput();			
 	}
 	
 	function getWhere($where,&$wpdb,$wp_query=null)
@@ -323,7 +324,7 @@ class BEMOAZIndex{
 		if(isset(self::$index))
 		{
 			if(strlen(self::$index) == 1)	//A single letter or number
-				$where .= " AND ".self::$getBaseQuery($wpdb);
+				$where .= " AND ".self::getBaseQuery($wpdb);
 			else if(strlen(self::$index) > 1)	//A range of letters or numbers e.g. A-E etc
 			{
 				$indexes = explode("-",self::$index);
@@ -341,7 +342,7 @@ class BEMOAZIndex{
 					if($j==0)
 						$where .= '(';
 						
-					$where .= self::$getBaseQuery($wpdb,$char);
+					$where .= self::getBaseQuery($wpdb,$char);
 					$j++;
 					$joiner = "OR";
 				}
@@ -358,29 +359,32 @@ class BEMOAZIndex{
 	private function getBaseQuery(&$wpdb)
 	{
 		$filter_string = 'post_title';
+		
+		$index = self::$index;
+		$filter = self::$filter;
 
-		if(self::$filter != '')
-			$filter_string = self::$filter_fields[self::$filter]['field'];
+		if($filter != '')
+			$filter_string = self::$filter_fields[$filter]['field'];
 			
-		if(strlen(self::$index) == 1)	//Just a letter
-			$where = "{$wpdb->posts}.{$filter_string} LIKE '{self::$index}%' ";
-		else if(strpos(self::$index,'-') > 0)
-			$where = "{$wpdb->posts}.{$filter_string} REGEXP '^[".self::$index."]' ";
+		if(strlen($index) == 1)	//Just a letter
+			$where = "{$wpdb->posts}.{$filter_string} LIKE '{$index}%' ";
+		else if(strpos($index,'-') > 0)
+			$where = "{$wpdb->posts}.{$filter_string} REGEXP '^[".$index."]' ";
 
 		return $where;	
 	}	
 
 	function get_predefined_index($predefined)
 	{
-		$retval .= self::$openWrapper();
-		if(!self::$validate())
+		$retval .= self::openWrapper();
+		if(!self::validate())
 			return false;
 
 		$indexes = explode(",",$predefined);
 		
 		for($i=0;$i<count($indexes);$i++)
 		{
-			$href = self::$getBaseURL($indexes[$i]);
+			$href = self::getBaseURL($indexes[$i]);
 
 			if(self::$index == "")	//Not selected -> link
 				$retval .= '<div><a href="'.$href.'">'.$indexes[$i].'</a></div>';
@@ -390,8 +394,8 @@ class BEMOAZIndex{
 				$retval .= '<div><a href="'.$href.'">'.$indexes[$i].'</a></div>';
 		}
 		
-		$retval .= self::$getAllLink();
-		$retval .= self::$closeWrapper();
+		$retval .= self::getAllLink();
+		$retval .= self::closeWrapper();
 		return $retval;
 	}	
 }

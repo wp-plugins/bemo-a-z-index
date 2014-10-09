@@ -26,7 +26,7 @@
 		<?php
 		}
 		
-		if(self::$getPostCount() > 0 && $record_count >  self::$post_count)
+		if(self::getPostCount() > 0 && $record_count >  self::$post_count)
 		{?>
 			<div class="bemoazindex-listing-nav">
 		<?php	
