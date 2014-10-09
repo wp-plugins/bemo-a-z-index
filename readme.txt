@@ -17,6 +17,12 @@ This can then be used anywhere posts are being listed.
 It also allows you to define a custom index type like this:
 [azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9"]
 
+You can also index pages:
+[azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="page"]
+
+Also works with WooCommerce:
+[azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="product"]
+
 If you also want to generate output, rather than filter existing posts you have to use the shortcode
 [azindexoutput]
 
