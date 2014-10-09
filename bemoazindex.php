@@ -40,28 +40,28 @@ function bemoazindex_posts_where( $where, &$wp_query) {
 	global $aztemplate;
 	global $azpostcount;
 	
-	$index = new BEMOAZIndex();	
+	BEMOAZIndex::initialize();
 	
 	if(isset($azindex))
-		$index->setIndex($azindex);	
+		BEMOAZIndex::setIndex($azindex);	
 	
 	if(isset($azfilter))
-		$index->setFilter($azfilter);
+		BEMOAZIndex::setFilter($azfilter);
 
 	if(isset($azcategory))
-		$index->setCategory($azcategory);
+		BEMOAZIndex::setCategory($azcategory);
 
 	if(isset($azposttype))
-		$index->setPostType($azposttype);
+		BEMOAZIndex::setPostType($azposttype);
 
 	if(isset($azpostcount))
-		$index->setPostCount($azpostcount);
+		BEMOAZIndex::setPostCount($azpostcount);
 
 	if(isset($aztemplate))	
-		$index->setTemplate($aztemplate);
+		BEMOAZIndex::setTemplate($aztemplate);
 		
 	if(isset($azindex))	
-		$where = $index->getWhere($where,$wpdb,$wp_query);
+		$where = BEMOAZIndex::getWhere($where,$wpdb,$wp_query);
 
 		
     return $where;
@@ -111,14 +111,14 @@ include('bemoazindex_custom_posts.php');
 /********************************************************************/
 function bemoazindex_get_index( $attr )
 {
-	$index = new BEMOAZIndex();	
+	BEMOAZIndex::initialize();
 	
 	main_body_filter($index,$attr);
 	
 	if(isset($attr['index']))	//Predefined index
-		$retval .= $index->get_predefined_index($attr['index']);
+		$retval .= BEMOAZIndex::get_predefined_index($attr['index']);
 	else						//Simple index
-		$retval .= $index->get_simple_index();
+		$retval .= BEMOAZIndex::get_simple_index();
 	
 	return $retval;
 }
@@ -127,17 +127,17 @@ function bemoazindex_get_output( $attr )
 {
 	$aztemplate = get_query_var('aztemplate');	
 	
-	$index = new BEMOAZIndex();	
+	BEMOAZIndex::initialize();	
 	
 	main_body_filter($index,$attr);
 	
 	if(isset($attr['template']))
-		$index->setTemplate($attr['template']);
+		BEMOAZIndex::setTemplate($attr['template']);
 	else if($aztemplate != '')
-		$index->setTemplate($aztemplate);
+		BEMOAZIndex::setTemplate($aztemplate);
 	
 	//Outputs the bottom part (if any)			
-	return $index->getOutput();				
+	return BEMOAZIndex::getOutput();				
 }
 
 function main_body_filter(&$index,$attr)
@@ -148,25 +148,25 @@ function main_body_filter(&$index,$attr)
 	$azpostcount = get_query_var('azpostcount');	
 	
 	if($azindex != '')
-		$index->setIndex($azindex);	
+		BEMOAZIndex::setIndex($azindex);	
 
 	if(isset($attr['filter']))
-		$index->setFilter($attr['filter']);
+		BEMOAZIndex::setFilter($attr['filter']);
 
 	if(isset($attr['category']))
-		$index->setCategory($attr['category']);
+		BEMOAZIndex::setCategory($attr['category']);
 	else if($azcategory != '')
-		$index->setCategory($azcategory);
+		BEMOAZIndex::setCategory($azcategory);
 
 	if(isset($attr['posttype']) )
-		$index->setPostType($attr['posttype']);
+		BEMOAZIndex::setPostType($attr['posttype']);
 	else if($azposttype != '')
-		$index->setPostType($azposttype);
+		BEMOAZIndex::setPostType($azposttype);
 
 	if(isset($attr['postcount']) )
-		$index->setPostCount($attr['postcount']);
+		BEMOAZIndex::setPostCount($attr['postcount']);
 	else if($azpostcount != '')
-		$index->setPostCount($azpostcount);	
+		BEMOAZIndex::setPostCount($azpostcount);	
 }
 
 /********************************************************************/

@@ -26,11 +26,11 @@
 		<?php
 		}
 		
-		if($this->getPostCount() > 0 && $record_count >  $this->post_count)
+		if(self::$getPostCount() > 0 && $record_count >  self::$post_count)
 		{?>
 			<div class="bemoazindex-listing-nav">
 		<?php	
-			next_posts_link( 'Older Entries', $this->post_count );
+			next_posts_link( 'Older Entries', self::$post_count );
 			previous_posts_link( 'Newer Entries' );
 		?>
 			</div>
