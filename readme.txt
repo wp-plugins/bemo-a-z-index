@@ -97,6 +97,9 @@ Coming soon
 
 == Changelog ==
 
+= 0.1.2 =
+* Fixed pagination in template
+
 = 0.1.1 =
 * Fixed some more bugs in the listings
 

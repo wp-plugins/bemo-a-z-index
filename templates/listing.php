@@ -1,6 +1,4 @@
 <?php
-		$records = new WP_Query( $args );
-		
 		$record_count = 0;
 		if( $records->have_posts() ) 
 		{
@@ -26,14 +24,13 @@
 		<?php
 		}
 		
-		if(self::getPostCount() > 0 && $record_count >  self::$post_count)
-		{?>
-			<div class="bemoazindex-listing-nav">
+		?>
+		<div class="bemoazindex-listing-nav">
 		<?php	
-			next_posts_link( 'Older Entries', self::$post_count );
+			if(self::getPostCount() > 0 && $record_count >  self::$post_count)
+				next_posts_link( 'Older Entries', self::$post_count );
 			previous_posts_link( 'Newer Entries' );
 		?>
-			</div>
+		</div>
 		<?php	
-		}
 ?>

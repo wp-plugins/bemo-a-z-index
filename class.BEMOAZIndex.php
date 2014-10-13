@@ -271,6 +271,9 @@ class BEMOAZIndex{
 		
 		ob_start();
 		
+		$args['paged'] =  ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+		$records = new WP_Query( $args );		
+		
 		if(file_exists($theme_path))
 			include($theme_path);
 		else
