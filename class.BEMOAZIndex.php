@@ -246,9 +246,9 @@ class BEMOAZIndex{
 		
 		if($taxonomy != '')
 		{
-			$args['tax_query']['taxonomy'] = $taxonomy;
-			$args['tax_query']['field'] = 'slug';
-			$args['tax_query']['terms'] = $category_slug;
+			$args['tax_query'][0]['taxonomy'] = $taxonomy;
+			$args['tax_query'][0]['field'] = 'slug';
+			$args['tax_query'][0]['terms'] = $category_slug;
 		}
 		
 		$basename = plugin_basename(__FILE__);
@@ -272,6 +272,10 @@ class BEMOAZIndex{
 		ob_start();
 		
 		$args['paged'] =  ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+		
+		if((int)self::$post_count > 0)
+			$args['posts_per_page'] = self::$post_count;
+
 		$records = new WP_Query( $args );		
 		
 		if(file_exists($theme_path))

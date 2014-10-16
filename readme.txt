@@ -97,6 +97,10 @@ Coming soon
 
 == Changelog ==
 
+= 0.1.3 =
+* Fixed filtering by category
+* Fixed postcount filtering
+
 = 0.1.2 =
 * Fixed pagination in template
 

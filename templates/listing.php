@@ -27,8 +27,9 @@
 		?>
 		<div class="bemoazindex-listing-nav">
 		<?php	
-			if(self::getPostCount() > 0 && $record_count >  self::$post_count)
-				next_posts_link( 'Older Entries', self::$post_count );
+			next_posts_link( 'Older Entries', self::$post_count );?>
+			&nbsp;
+			<?php
 			previous_posts_link( 'Newer Entries' );
 		?>
 		</div>
