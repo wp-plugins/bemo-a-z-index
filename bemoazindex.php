@@ -40,6 +40,19 @@ function bemoazindex_posts_where( $where, &$wp_query) {
 	global $aztemplate;
 	global $azpostcount;
 	
+	if(!isset($azindex))
+		$azindex = get_query_var('azindex');	
+	if(!isset($azfilter))
+		$azfilter = get_query_var('azfilter');	
+	if(!isset($azcategory))
+		$azcategory = get_query_var('azcategory');	
+	if(!isset($azposttype))
+		$azposttype = get_query_var('azposttype');	
+	if(!isset($aztemplate))
+		$aztemplate = get_query_var('aztemplate');	
+	if(!isset($azpostcount))
+		$azpostcount = get_query_var('azpostcount');	
+	
 	BEMOAZIndex::initialize();
 	
 	if(isset($azindex))
@@ -62,7 +75,6 @@ function bemoazindex_posts_where( $where, &$wp_query) {
 		
 	if(isset($azindex))	
 		$where = BEMOAZIndex::getWhere($where,$wpdb,$wp_query);
-
 		
     return $where;
 }
@@ -96,18 +108,18 @@ function bemoazindex_add_query_vars($vars){
 }
 
 /********************************************************************/
-/* Include the widget (pro only)											*/
+/* Include the widget												*/
 /********************************************************************/
 include('class.WPBemoazindexWidget.php');
 include('class.WPBemoazindexOutputWidget.php');
 
 /********************************************************************/
-/* Include the custom posts code (pro only)										*/
+/* Include the custom posts code									*/
 /********************************************************************/
 include('bemoazindex_custom_posts.php');
 
 /********************************************************************/
-/* MAIN CODE - specific to version														*/
+/* MAIN CODE - specific to version									*/
 /********************************************************************/
 function bemoazindex_get_index( $attr )
 {

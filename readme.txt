@@ -98,8 +98,7 @@ Coming soon
 == Changelog ==
 
 = 0.1.3 =
-* Fixed filtering by category
-* Fixed postcount filtering
+* Fixed this not working in category pages.
 
 = 0.1.2 =
 * Fixed pagination in template

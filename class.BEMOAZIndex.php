@@ -291,9 +291,31 @@ class BEMOAZIndex{
 	
 	private function getBaseURL($letter)
 	{
-		$url = get_the_guid();
+		//$url = get_the_guid();
+		$url=strtok($_SERVER["REQUEST_URI"],'?');
+		
+		//$url = add_query_arg( NULL, NULL );
+		
+		//echo $url;
+		
+		//Remove p for a start
+		/*
+		$ppos = strpos($url,'p=');
+		
+		if($ppos !== FALSE)
+		{
+			$amppos = strpos($url,'&',$ppos);
+			
+			if($amppos === FALSE)
+				$url = substr($url,0,$ppos);
+			else
+			{
+				$search = substr($url,$ppos,$amppos);
+				$url = str_replace($search,'',$url);
+			}
+		}*/
 	
-		$href = $url.'&azindex='.$letter;
+		$href = $url.'?azindex='.$letter;
 
 		if(self::$category != '')	
 			$href .= '&azcategory='.self::$category;	
@@ -302,7 +324,7 @@ class BEMOAZIndex{
 			if(self::$filter != '')
 				$href .= '&azfilter='.self::$filter;	
 		}
-		
+
 		return $href;
 	}	
 
@@ -357,8 +379,6 @@ class BEMOAZIndex{
 				$where .= ')';
 			}
 		}	
-		
-		//var_dump($wpdb);
 
 		return $where;
 	}
@@ -405,6 +425,22 @@ class BEMOAZIndex{
 		$retval .= self::closeWrapper();
 		return $retval;
 	}	
+
+	//Here we can filter the categories
+	function restrict_categories($categories) 
+	{
+	/*
+		$size = count($categories);
+		for ($i = 0; $i < $size; $i++) {			
+			if ($categories[$i]->slug != 'site_news')
+				 unset($categories[$i]);
+		}
+		*/
+	
+		return $categories;
+	}
+	
 }
 // END class BEMOAZIndex	
+add_filter( 'get_terms', array( 'BEMOAZIndex', 'restrict_categories' ) );
 ?>
