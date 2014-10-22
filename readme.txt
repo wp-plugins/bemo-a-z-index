@@ -20,6 +20,13 @@ It also allows you to define a custom index type like this:
 You can also index pages:
 [azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="page"]
 
+You can set what field to order by:
+[azindex orderby="post_title"]
+
+You can set it to ignore certain prefixes such as "A" or "The". This is case insensitive.
+[azindex ignoreprefixes="A,The"]
+So for example, if you have "The" in there then "The Little House on the Prarie" will come up under both "L" and "T".
+
 Also works with WooCommerce:
 [azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="product"]
 
@@ -53,6 +60,8 @@ If you have a custom post type, you can do the following:
 
 You can also specify pagination by putting in postcount parameter which represents a number of posts to break on, e.g.
 [azindexoutput postcount="4"]
+[azindex postcount="4"]
+You should put this on both shortcodes if you are using them.
 
 You can create your own templates for various uses. In your theme create a folder called BEMOAZIndex and copy the file templates/listing.php in there. You can clone this and then specify other template names as follows:
 [azindexoutput template="bibliography.php"]
@@ -96,6 +105,10 @@ In order to get the format you want, you would need to know something about PHP 
 Coming soon
 
 == Changelog ==
+
+= 0.1.4 =
+* Lots more fixes for 404 errors.
+* order by working properly.
 
 = 0.1.3 =
 * Fixed this not working in category pages.

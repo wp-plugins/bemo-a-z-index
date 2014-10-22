@@ -27,7 +27,7 @@
 		?>
 		<div class="bemoazindex-listing-nav">
 		<?php	
-			next_posts_link( 'Older Entries', self::$post_count );?>
+			next_posts_link( 'Older Entries', $records->max_num_pages);?>
 			&nbsp;
 			<?php
 			previous_posts_link( 'Newer Entries' );
