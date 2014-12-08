@@ -106,6 +106,9 @@ Coming soon
 
 == Changelog ==
 
+= 0.1.5 =
+* Disabled function that stopped multiple queries being affected as it doesn't work right.
+
 = 0.1.4 =
 * Lots more fixes for 404 errors.
 * order by working properly.

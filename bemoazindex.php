@@ -3,7 +3,7 @@
 Plugin Name: BEMO A-Z Index
 Plugin URI: http://www.bemoore.com/bemo-a-z-index-pro/
 Description: This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
-Version: 0.1.4
+Version: 0.1.5
 Author: Bob Moore (BeMoore Software)
 Author URI: http://www.bemoore.com
 License: GPL2
@@ -30,13 +30,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /********************************************************************/
 require_once('class.BEMOAZIndex.php');	//Specific to pro version
 
-//To stop all queries being affected.
+//To stop all queries being affected (this doesn't work properly so disable for the moment)
 function bemoazindexApplyQueryFilter($wp_query)
 {
 	global $azindex;
 	
-	//echo 'AZindex is :'.$azindex;
-
 	//For a category listing, this is always 0
 	if($wp_query->is_archive)
 	{	
@@ -57,11 +55,11 @@ function bemoazindexApplyQueryFilter($wp_query)
 function bemoazindex_posts_where( $where, &$wp_query) 
 {
 	// TODO: Optimise this
-	if(!bemoazindexApplyQueryFilter($wp_query))
-	{
-		BEMOAZIndex::$callcount++;
-		return $where;
-	}
+	//if(!bemoazindexApplyQueryFilter($wp_query))
+	//{
+	//	BEMOAZIndex::$callcount++;
+	//	return $where;
+	//}
 
 	global $wpdb;
 	
@@ -139,8 +137,8 @@ add_filter( 'posts_where' , 'bemoazindex_posts_where',10,2 );
 
 function bemoazindex_posts_orderby($orderby, &$wp_query) {
 	
-	if(!bemoazindexApplyQueryFilter($wp_query))
-		return $orderby;
+	//if(!bemoazindexApplyQueryFilter($wp_query))
+	//	return $orderby;
 	
 	global $wpdb;
 	
