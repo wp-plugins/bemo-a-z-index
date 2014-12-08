@@ -106,6 +106,9 @@ Coming soon
 
 == Changelog ==
 
+= 0.1.6 =
+* Fixed a few more bugs.
+
 = 0.1.5 =
 * Disabled function that stopped multiple queries being affected as it doesn't work right.
 

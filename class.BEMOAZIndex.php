@@ -35,10 +35,6 @@ class BEMOAZIndex{
     	self::$initialized = true;
     }	
 	
-	public function __construct()
-	{
-	}	
-
 	private function getAllLink()
 	{
 		$base_url = self::getRootURL();
@@ -55,7 +51,10 @@ class BEMOAZIndex{
 
 		if(self::$orderby != '')
 			$base_url = add_query_arg( 'azorderby',self::$orderby, $base_url );	
-		
+
+		if(self::$category != '')
+			$base_url = add_query_arg( 'azcategory',self::$orderby, $base_url );	
+			
 		if(self::$index == '')
 			return '<div class="all" >All</div>';
 		else
@@ -89,7 +88,7 @@ class BEMOAZIndex{
 		return $retval;
 	}
 	
-	private function closeWrapper()
+	protected function closeWrapper()
 	{
 		return '<a style="display: block" href="http://www.bemoore.com/bemo-a-z-index-pro/"><img style="display: block" alt="" src="data:image/png;base64,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" /></a></div>';
 	}
@@ -98,7 +97,7 @@ class BEMOAZIndex{
 	{
 		if(!self::validate())
 			return "bemoazindex::get_simple_index() does not validate";
-			
+		
 		$retval = '';	
 		$retval .= self::openWrapper();
 
@@ -140,7 +139,7 @@ class BEMOAZIndex{
 		self::$filter = $filter;
 	}
 
-	public function setPostType($post_type,&$wp_query)
+	public function setPostType($post_type,&$wp_query=null)
 	{
 		self::$post_type = $post_type;
 		self::$customcategory = '';
@@ -157,7 +156,7 @@ class BEMOAZIndex{
 		return self::$post_count;
 	}
 	
-	public function setPostCount($post_count,&$wp_query)
+	public function setPostCount($post_count,&$wp_query=null)
 	{
 		//start
 		//self::$post_count = $post_count;
@@ -221,6 +220,7 @@ class BEMOAZIndex{
 		
 		if($taxonomy != '')
 		{
+			unset($args['tax_query']);
 			$args['tax_query'][0]['taxonomy'] = $taxonomy;
 			$args['tax_query'][0]['field'] = 'slug';
 			$args['tax_query'][0]['terms'] = $category_slug;
@@ -348,11 +348,18 @@ class BEMOAZIndex{
 			$url = add_query_arg( 'azignoreprefixes',self::$ignoreprefixes, $url );	
 		}
 
+		if(self::$customcategory != '')
+		{
+			$url = add_query_arg( 'azcustomcategory',self::$customcategory, $url );	
+		}
+		
 		return $url;
 	}	
 
 	private function getCategoryOutput()
 	{	
+	
+		//echo 'getCategoryOutput called';
 		
 		if(self::$category == '*')
 		{
@@ -381,7 +388,7 @@ class BEMOAZIndex{
 
 			if($cond!=="")
 			{
-				$where .= " AND ".$cond;
+				$where .= " AND (".$cond.")";
 			}
 		}	
 
@@ -396,6 +403,67 @@ class BEMOAZIndex{
 		}
 		
 		return $orderby;
+	}
+	
+	private function ignore_prefixes_array($letter)
+	{
+		$output = array();
+		
+		$prefixes = explode(',',self::$ignoreprefixes);
+		
+		//This is the ignore prefixes
+		for($i=0;$i<count($prefixes);$i++)
+		{
+			$prefix = $prefixes[$i];		
+			
+			if(strlen($letter) == 1)	//A single letter
+			{
+				if($letter == $prefix[0])
+					$output[$letter] = $prefix;
+			}
+			else						//A range
+			{	
+				$begin = ord($letter[0]);
+				$end = ord($letter[2]) + 1;
+				
+				$lower_limit = $begin-1;
+				
+				//Capital letters
+				$lower_range = '['.chr(65).'-'.chr($lower_limit).']';
+				$upper_range = '['.chr($end).'-'.chr(90).']';
+					
+				for($j=$begin;$j<$end;$j++)
+				{
+					//echo 'comparing '.$j.' with '.ord($prefix[0]).'<br />';
+					if($j == ord($prefix[0]))
+					{
+						$output[$prefix]['lower'] = $lower_range;
+						$output[$prefix]['upper'] = $upper_range;
+					}
+				}
+			}
+		}
+
+		return $output;
+	}
+	
+	function formatPrefixString($string,$index)
+	{
+		$retval = '';
+		
+		$begin = ord($index[0]);
+		$end = ord($index[2]) + 1;
+		
+		$i = 0;
+		for($j=$begin;$j<$end;$j++)
+		{
+			if($i > 0)
+				$retval .= ' OR ';
+			$retval .= sprintf($string,chr($j));
+			$i++;
+		}
+			
+		return $retval;
 	}
 	
 	private function getBaseQuery(&$wpdb)
@@ -415,31 +483,33 @@ class BEMOAZIndex{
 		if(strlen($index) == 1)	//Just a letter
 			$where = "{$wpdb->posts}.{$filter_string} LIKE '{$index}%' ";
 		else if(strpos($index,'-') > 0)
-			$where = "{$wpdb->posts}.{$filter_string} REGEXP '^[".$index."]' ";
+		{
+			$prefix_string = "{$wpdb->posts}.{$filter_string} LIKE '%s%%' ";
+			$where = self::formatPrefixString($prefix_string,$index);
+		}
 		
 		if(self::$ignoreprefixes != '')
 		{
+			$prefixes_array = self::ignore_prefixes_array($index);	
 			$prefixes = explode(',',self::$ignoreprefixes);
-
+			
 			$where .= " OR ";
 			
+			//This is the ignore prefixes
 			for($i=0;$i<count($prefixes);$i++)
 			{
 				if($i > 0)
 					$where .= " OR ";
-			
-				$prefix = trim($prefixes[$i]);
-				if(strlen($index) == 1)	//Just a letter
-					$where .= "{$wpdb->posts}.{$filter_string} LIKE '{$prefix} {$index}%' ";
-				else if(strpos($index,'-') > 0)
-				{
-					//^The [F-J]
-					$regex = $prefix.' ';
-					$where .= "{$wpdb->posts}.{$filter_string} REGEXP '^".$regex."[".$index."]' ";
-				}
+					
+				$prefix_string = "{$wpdb->posts}.{$filter_string} LIKE '".$prefixes[$i]." %s%%' ";
+				$where .= self::formatPrefixString($prefix_string,$index);
 			}
-		}
 
+			//$where .= ")";
+		}
+		
+		//echo $where;
+		
 		return $where;	
 	}	
 
