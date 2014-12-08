@@ -35,7 +35,7 @@ class BEMOAZIndex{
     	self::$initialized = true;
     }	
 	
-	private function __construct()
+	public function __construct()
 	{
 	}	
 
