@@ -38,8 +38,9 @@ function azindex_options() {
 
     // settings form
     
+    
     ?>
-   	<h2>Purchase a license key <a href="http://www.bemoore.com/products/wordpress-plugins-pro/bemo-a-z-index-pro/" target="_blank">here</a></h2>
+   	<h2>Purchase a license key <a href="http://www.bemoore.com/product-category/wordpress-plugins-pro/bemoazindex-pro/" target="_blank">here</a></h2>
 
 	<form name="form1" method="post" action="">
 
