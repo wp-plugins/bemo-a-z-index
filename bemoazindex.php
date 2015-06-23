@@ -1,16 +1,19 @@
 <?php
+
+
+//$azindex_shortcode_settings = array();
 /*
 Plugin Name: BEMO A-Z Index
 Plugin URI: http://www.bemoore.com/bemo-a-z-index-pro/
 Description: This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
-Version: 0.1.6
+Version: 1.0.0
 Author: Bob Moore (BeMoore Software)
 Author URI: http://www.bemoore.com
 License: GPL2
 */
 
 /*  
-Copyright 2013-2014  Bob Moore  (email : bob.moore@bemoore.com)
+Copyright 2013-2015  Bob Moore  (email : bob.moore@bemoore.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
@@ -25,321 +28,290 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-/********************************************************************/
-/* Include the core code												*/
-/********************************************************************/
-require_once('class.BEMOAZIndex.php');	//Specific to pro version
 
-//To stop all queries being affected.
-function bemoazindexApplyQueryFilter($wp_query)
+function azindex_init() 
 {
-	global $azindex;
-	
-	//echo 'AZindex is :'.$azindex;
-
-	//For a category listing, this is always 0
-	if($wp_query->is_archive)
-	{	
-		if(BEMOAZIndex::$callcount == 0)
-			return true;
-	}
-
-	//Else ... must be an azindex one
-	//TODO: better error checking here.
-	if(is_array($wp_query->query_vars['tax_query']))
-		return true;
-
-	return false;
+   /* Register our stylesheet. */
+   wp_register_style( 'azindex_stylesheet', plugins_url('bemoazindex.css', __FILE__) );
+   wp_enqueue_style('azindex_stylesheet');
 }
+add_action('wp_enqueue_scripts', 'azindex_init');   
 
-
-//Add WHERE addition to query 
-function bemoazindex_posts_where( $where, &$wp_query) 
+function azindex($atts)
 {
-	// TODO: Optimise this
-	//if(!bemoazindexApplyQueryFilter($wp_query))
-	//{
-	//	BEMOAZIndex::$callcount++;
-	//	return $where;
-	//}
-
-	global $wpdb;
+	if(is_admin())
+		return;
 	
-	global $azindex;
-	global $azfilter;
-	global $azcategory;
-	global $azposttype;
-	global $aztemplate;
-	global $azpostcount;
-	global $azorderby;
-	global $azignoreprefixes;
-	
-	if(!isset($azorderby))
-		$azorderby = get_query_var('azorderby');	
-	if(!isset($azindex))
-		$azindex = get_query_var('azindex');	
-	if(!isset($azfilter))
-		$azfilter = get_query_var('azfilter');	
-	if(!isset($azcategory))
-		$azcategory = get_query_var('azcategory');	
-	if(!isset($azposttype))
-		$azposttype = get_query_var('azposttype');	
-	if(!isset($aztemplate))
-		$aztemplate = get_query_var('aztemplate');	
-	if(!isset($azpostcount))
-		$azpostcount = get_query_var('azpostcount');	
-	
-	if(!isset($azignoreprefixes))
-		$azignoreprefixes = get_query_var('azignoreprefixes');	
-	
-	BEMOAZIndex::initialize();
-	BEMOAZIndex::$callcount++;
-	
-	if(isset($azindex))
-	{
-		BEMOAZIndex::setIndex($azindex);	
-	}
-	if(isset($azorderby))
-	{
-		BEMOAZIndex::setOrderBy($azorderby);	
-	}
-	if(isset($azignoreprefixes))
-	{
-		BEMOAZIndex::setIgnorePrefixes($azignoreprefixes);	
-	}
-	if(isset($azfilter))
-	{
-		BEMOAZIndex::setFilter($azfilter);
-	}
-	if(isset($azcategory))
-	{
-		BEMOAZIndex::setCategory($azcategory);
-	}
-	if(isset($azposttype))
-	{
-		BEMOAZIndex::setPostType($azposttype,$wp_query);
-	}
-	if(isset($azpostcount))
-	{
-		BEMOAZIndex::setPostCount($azpostcount,$wp_query);
-	}
-	if(isset($aztemplate))	
-	{
-		BEMOAZIndex::setTemplate($aztemplate);
-	}	
-	
-	if(isset($azindex))	
-	{
-		$where = BEMOAZIndex::getWhere($where,$wpdb,$wp_query);
-	}
-	
-    return $where;
-}
-add_filter( 'posts_where' , 'bemoazindex_posts_where',10,2 );
-
-function bemoazindex_posts_orderby($orderby, &$wp_query) {
-	
-	//if(!bemoazindexApplyQueryFilter($wp_query))
-	//	return $orderby;
-	
-	global $wpdb;
-	
-	$orderby = BEMOAZIndex::getOrderBy($orderby,$wpdb,$wp_query);
-	
-	return $orderby;
-}
-add_filter('posts_orderby', 'bemoazindex_posts_orderby',11,2);
-
-//Add stylesheet
-/**
- * Enqueue plugin style-file
- */
-function bemoazindex_add_stylesheet() {
-	// Respects SSL, Style.css is relative to the current file
-	wp_register_style( 'bemoazindex-style', plugins_url('bemoazindex.css', __FILE__) );
-	wp_enqueue_style( 'bemoazindex-style' );
-}
-add_action( 'wp_enqueue_scripts', 'bemoazindex_add_stylesheet' );
-
-/********************************************************************/
-/* FILTERS															*/
-/********************************************************************/
-// Add the query var bemoazindex so WP won't drop it
-add_filter( 'query_vars', 'bemoazindex_add_query_vars', 1, 1 );
-
-function bemoazindex_add_query_vars($vars){
-	$vars[] = "azindex";
-	$vars[] = "azorderby";
-	$vars[] = "azignoreprefixes";
-	$vars[] = "azfilter";
-	$vars[] = "azcategory";
-	$vars[] = "azposttype";
-	$vars[] = "azpostcount";
-	$vars[] = "aztemplate";
-    return $vars;
+	echo azindex_get_index($atts);
 }
 
-/********************************************************************/
-/* Include the widget												*/
-/********************************************************************/
-include('class.WPBemoazindexWidget.php');
-include('class.WPBemoazindexOutputWidget.php');
+add_shortcode('azindex', 'azindex');
 
-/********************************************************************/
-/* Include the custom posts code									*/
-/********************************************************************/
-include('bemoazindex_custom_posts.php');
 
-/********************************************************************/
-/* MAIN CODE - specific to version									*/
-/********************************************************************/
-function bemoazindex_get_index( $attr )
+function azindex_get_simple_index($azindex,$settings)
 {
-	BEMOAZIndex::initialize();
-	
-	main_body_filter($index,$attr);
-	
 	$retval = '';
 	
-	if(isset($attr['index']))	//Predefined index
-		$retval .= BEMOAZIndex::get_predefined_index($attr['index']);
-	else						//Simple index
-		$retval .= BEMOAZIndex::get_simple_index();
+	for($i=0;$i<26;$i++)
+	{
+		$letter[$i] = chr($i + 65);
+		$href = '';
+
+		$settings['azindex'] = $letter[$i];
+		$href = add_query_arg( $settings, $href );
+		
+		$href = remove_page_from_link($href);
+		
+		if($azindex == "")	//Not selected -> link
+			$retval .= '<div><a href="'.$href.'">'.$letter[$i].'</a></div>';
+		else if($azindex == $letter[$i])
+			$retval .= '<div class="selected" >'.$letter[$i].'</div>';
+		else
+			$retval .= '<div><a href="'.$href.'">'.$letter[$i].'</a></div>';
+	}
 	
 	return $retval;
 }
 
-function bemoazindex_page_nav()
+function remove_page_from_link($href)
 {
-	BEMOAZIndex::initialize();	
-	BEMOAZIndex::pageNav();
+	$paged = get_query_var( 'paged', 1 ); 
+	$remove_page = '/page/'.$paged;
+
+	if($paged > 1)
+		$href = str_replace($remove_page,'',$href);
+		
+	return $href;
 }
 
-function bemoazindex_get_output( $attr )
+function azindex_get_predefined_index($azindex,$settings)
 {
-	$aztemplate = get_query_var('aztemplate');	
+	$retval = '';
+	$href = '';
+	$indexes = explode(",",$settings['index']);
 	
-	BEMOAZIndex::initialize();	
-	
-	main_body_filter($index,$attr);
-	
-	if(isset($attr['template']) && $attr['template'] != '')
-		BEMOAZIndex::setTemplate($attr['template']);
-	else if($aztemplate != '')
-		BEMOAZIndex::setTemplate($aztemplate);
-	
-	//Outputs the bottom part (if any)			
-	return BEMOAZIndex::getOutput();				
-}
 
-function main_body_filter(&$index,$attr)
+	for($i=0;$i<count($indexes);$i++)
+	{
+		$settings['azindex'] = $indexes[$i];
+
+		$href = add_query_arg( $settings );
+		$href = remove_page_from_link($href);
+		
+		if($azindex == "")	//Not selected -> link
+			$retval .= '<div><a href="'.$href.'">'.$indexes[$i].'</a></div>';
+		else if($azindex == $indexes[$i])
+			$retval .= '<div class="selected" >'.$indexes[$i].'</div>';
+		else
+			$retval .= '<div><a href="'.$href.'">'.$indexes[$i].'</a></div>';
+	}
+	
+	return $retval;
+}	
+
+
+function azindex_get_index($atts)
 {
-	$azindex = get_query_var('azindex');	
-	$azorderby = get_query_var('azorderby');	
-	$azignoreprefixes = get_query_var('azignoreprefixes');	
-	$azcategory = get_query_var('azcategory');	
-	$azposttype = get_query_var('azposttype');	
-	$azpostcount = get_query_var('azpostcount');
+	$retval = '';
 	
-	if($azindex != '')
-		BEMOAZIndex::setIndex($azindex);	
+	$settings = array();
+	
+	$settings['filter'] = isset($atts['filter']) ? $atts['filter'] : 'title';
+	$settings['debug'] = isset($atts['debug']) ? $atts['debug'] : null;
+	$settings['target'] = isset($atts['target']) ? $atts['target'] : null;
+	$settings['index'] = isset($atts['index']) ? $atts['index'] : null;
+//	$settings['ignoreprefixes'] = isset($atts['ignoreprefixes']) ? $atts['ignoreprefixes'] : null;
+	$settings['content'] = isset($atts['content']) ? $atts['content'] : null;
 
-	if($azorderby != '')
-		BEMOAZIndex::setOrderBy($azorderby);	
+	$settings['posttype'] = isset($atts['posttype']) ? $atts['posttype'] : null;
+	$settings['category'] = isset($atts['category']) ? $atts['category'] : null;
+	$settings['template'] = isset($atts['template']) ? $atts['template'] : null;
+	$settings['postcount'] = isset($atts['postcount']) ? $atts['postcount'] : null;
+	
+	$azindex = get_query_var('azindex');
+	
+	$retval .= '<div class="bemoazindex" >';
+	
+	if($settings['index'] == '')
+		$retval .= azindex_get_simple_index($azindex,$settings);
+	else
+		$retval .= azindex_get_predefined_index($azindex,$settings);
 
-	if($azignoreprefixes != '')
-		BEMOAZIndex::setIgnorePrefixes($azignoreprefixes);	
+	
+	if($azindex == "")	//Not selected -> link
+		$retval .= '<div>ALL</div>';
+	else
+	{
+		$href = $_SERVER["REQUEST_URI"] ;
+		$href = remove_query_arg('azindex',$href);
+		$href = remove_query_arg($settings,$href);
 		
-	if(isset($attr['filter']))
-		BEMOAZIndex::setFilter($attr['filter']);
+		$retval .= '<div><a href="'.$href.'">ALL</a></div>';
+	}
+	
+	$retval .= '</div>';
+	
+    $license_key_field_name = 'azindex_license_key';
 
-	if(isset($attr['orderby']))
-		BEMOAZIndex::setOrderBy($attr['orderby']);
+    // Read in existing option value from database
+    $license_key_val = get_option( $license_key_field_name );
 
-	if(isset($attr['ignoreprefixes']))
-		BEMOAZIndex::setIgnorePrefixes($attr['ignoreprefixes']);
+	$stringtocompare = "bemoazindex". $_SERVER['SERVER_NAME'] ."bemoazindex";
+	$stringtocomparedev = "bemoazindexdeveloperbemoazindex";
+	
+    if(md5($stringtocompare) != $license_key_val && md5($stringtocomparedev) != $license_key_val)
+    {
+		if ( current_user_can( 'manage_options' )  )
+			$retval .= '<p>Unlicensed - click <a href="'.get_site_url().'/wp-admin/options-general.php?page=azindex_settings">Here</a> to license  </p>';
+		else
+			$retval .= '<p><a style="display: block" href="http://www.bemoore.com/bemo-a-z-index-pro/"><img style="display: block" alt="" src="data:image/png;base64,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" /></a></div></p>';
+	}
+	
+	if($settings['content']	 == "true")
+	{
+		echo $retval;
+		require_once("bemoazindex_content.php");
+		
+		$settings['azindex'] = $azindex;
+		getAZIndexContent($settings);
+		return "";
+	}
 
-	if(isset($attr['category']))
-		BEMOAZIndex::setCategory($attr['category']);
-	else if($azcategory != '')
-		BEMOAZIndex::setCategory($azcategory);
-
-	if(isset($attr['posttype']) )
-		BEMOAZIndex::setPostType($attr['posttype']);
-	else if($azposttype != '')
-		BEMOAZIndex::setPostType($azposttype);
-
-	if(isset($attr['postcount']) )
-		BEMOAZIndex::setPostCount($attr['postcount']);
-	else if($azpostcount != '')
-		BEMOAZIndex::setPostCount($azpostcount);	
+	return $retval;
 }
 
-/********************************************************************/
-/* ACTIONS															*/
-/********************************************************************/
-//Pick up the shortcode
-add_action('init', 'set_index_vars');
-function set_index_vars()
+function add_bemoazindex_query_vars( $vars )
 {
-	global $azindex;
-	global $azfilter;
-	global $azorderby;
-	global $azcategory;
-	global $azposttype;
-	global $azpostcount;
-	global $azignoreprefixes;
-	
-	$tmp = get_query_var('azindex');
-	
-	if($tmp != "")
-		$azindex = $tmp;
-
-	$tmp = get_query_var('azignoreprefixes');
-	
-	if($tmp != "")
-		$azignoreprefixes = $tmp;
-
-	$tmp = get_query_var('azfilter');
-	
-	if($tmp != "")
-		$azfilter = $tmp;
-
-	$tmp = get_query_var('azcategory');
-	
-	if($tmp != "")
-		$azcategory = $tmp;
-		
-	$tmp = get_query_var('azposttype');
-	
-	if($tmp != "")
-		$azposttype = $tmp;		
-
-	$tmp = get_query_var('azpostcount');
-	
-	if($tmp != "")
-		$azpostcount = $tmp;				
-		
-	$tmp = get_query_var('azorderby');
-	
-	if($tmp != "")
-		$azorderby = $tmp;				
-		
+  $vars[] = "azindex";
+  $vars[] = "filter";
+  $vars[] = "target";
+  $vars[] = "debug";
+  $vars[] = "content";
+//  $vars[] = "ignoreprefixes";
+  return $vars;
 }
+add_filter( 'query_vars', 'add_bemoazindex_query_vars',10,1 );
 
-/********************************************************************/
-/* SHORTCODES														*/
-/********************************************************************/
-//Register the AZ Index shortcode [azindex]
-//$azindex = '';
-//$azfilter = '';
-add_shortcode('azindex','bemoazindex_get_index_filter');
-function bemoazindex_get_index_filter($attr){
-	return bemoazindex_get_index($attr); 
-}
 
-add_shortcode('azindexoutput','bemoazindex_get_output_filter');
-function bemoazindex_get_output_filter($attr){
-	return bemoazindex_get_output($attr); 
+add_filter('posts_where','azindex_posts_where',10,2);
+function azindex_posts_where( $where , &$wp_query ) 
+{
+	global $wpdb;
+	
+	//Have to use $_REQUEST as get_query_var isn't reliable
+	$azindex = isset($_REQUEST['azindex']) ? $_REQUEST['azindex'] : '';
+	$filter = isset($_REQUEST['filter']) ? $_REQUEST['filter'] : 'title';
+	$target = isset($_REQUEST['target']) ? (int)$_REQUEST['target'] : 1;
+	$debug = isset($_REQUEST['debug']) ? true : false;
+	$content = isset($_REQUEST['content']) ? true : false;
+//	$ignoreprefixes = isset($_REQUEST['ignoreprefixes']) ? $_REQUEST['ignoreprefixes'] : '';
+
+	//We are generating the content ourselves - no need to change anything here
+	//if($content)
+	//	return $where;
+		
+	if($filter == 'slug')
+		$dbfilter = 'name';
+	else
+		$dbfilter = $filter;
+	
+	$id_string = $wpdb->posts.".ID";
+	
+	if(strpos($where,$id_string) === false )
+	{
+		if($azindex != "")
+		{
+			static $counter = 0;
+			++$counter;		
+			
+			if($debug)
+			{
+				echo '<pre>';
+				echo "Target : ".$counter;
+			}			
+				
+			if($target == $counter)
+			{	
+				if(strlen($azindex) == 1)
+					$where .= " AND {$wpdb->posts}.post_".$dbfilter." LIKE '".esc_sql($azindex)."%'";
+				else if(strlen($azindex) == 3)
+					$where .= " AND {$wpdb->posts}.post_".$dbfilter." REGEXP '^[".esc_sql($azindex)."]'";
+
+				//Prefixes - for now they don't exist
+				/*if($ignoreprefixes != "")
+				{	
+					echo $ignoreprefixes;
+					
+					$prefixes = explode(",",$ignoreprefixes);
+					$prefix_string = " AND (";
+					
+					
+					for($i=0;$i<count($prefixes);$i++)
+					{		
+						if($i > 0)
+							$prefix_string .= " OR ";
+						
+						$prefix_string .= "{$wpdb->posts}.post_".$dbfilter." LIKE '".$prefixes[$i]." %s%%' ";
+					}
+					
+					$prefix_string .= " ) ";
+					
+					$where .= formatPrefixString($prefix_string,$index);
+				}*/
+					
+
+				if($debug)
+				{
+					echo " : Filter Active : Filtering $azindex by $filter ";
+				}
+			}
+			else
+			{
+				if($debug)
+					echo " : Filter Not Active";
+			}
+			
+			if($debug)
+				echo '</pre>';
+
+		}
+		
+	}
+	
+	//echo $where;
+	//die();
+
+	return $where;
 }
+/*
+function formatPrefixString($string,$index)
+{
+	$retval = '';
+	
+	$begin = ord($index[0]);
+	$end = ord($index[2]) + 1;
+	
+	$i = 0;
+	for($j=$begin;$j<$end;$j++)
+	{
+		if($i > 0)
+			$retval .= ' OR ';
+		$retval .= sprintf($string,chr($j));
+		$i++;
+	}
+		
+	return $retval;
+}
+*/
+//Init the options
+include ('bemoazindex_options.php');
+
+//Init the admin category stuff
+include ('bemoazindex_category.php');
+
+//Init the custom post type
+include ('bemoazindex_custom_posts.php');
+
+//Include the form for TinyMCE
+include ('bemoazindex_form.php');
 ?>
