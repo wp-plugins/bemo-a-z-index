@@ -104,7 +104,7 @@ Then make a page called Artists (or whatever you want to call it).
 
 Then put the following on that page:
 
-[azindex posttype="azindexcustom"]
+[azindex content="true" posttype="azindexcustom"]
 
 
 The first code will display the A-Z for all categories.  The second one will display the actual listings.
@@ -119,6 +119,9 @@ In order to get the format you want, you would need to know something about PHP 
 5. Category filter
 
 == Changelog ==
+
+= 1.0.1 =
+* Small FAQ update
 
 = 1.0.0 =
 * Major new release with UI and category / tag filtering
