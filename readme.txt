@@ -119,6 +119,9 @@ In order to get the format you want, you would need to know something about PHP 
 5. Category filter
 
 == Changelog ==
+= 1.0.3 =
+* Temp file in root dir causing funny issues
+
 = 1.0.2 =
 * Small file update
 
