@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This is a plugin that provides a customizable A-Z index of the posts displayed on a particular page, category or product listing.
 
 == Description ==
-I have added a new interface to make it easier to use this plugin. All you have to do is open up your page editor and you will see an A-Z index icon (see screenshot 1).
+I have added a new interface to make it easier to use this plugin. All you have to do is open up your page editor and you will see an A-Z index icon (see screenshots).
 
 This plugin works in 3 situations now:
 1. An existing page that has some sort of a list on it already (e.g. a testimonials page, or a WooCommerce product listing)
