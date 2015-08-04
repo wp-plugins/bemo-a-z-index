@@ -18,69 +18,8 @@ This plugin works in 3 situations now:
 2. An existing category page (e.g. a blog category)
 3. A blank page that you want to list something in WordPress on.
 
-To use this plugin just put the shortcode [azindex] on the page you want to display an A-Z index on.
-This can then be used anywhere posts are being listed.
+For more detailed info, please visit : http://www.bemoore.com/products/wordpress-plugin-free/bemo-a-z-index/
 
-It also allows you to define a custom index type like this:
-[azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9"]
-
-You can set what field to order by:
-[azindex orderby="post_title"]
-
-Filtering posts in a category page:
-
-Let's assume your category is called blog ....
-
-For this to work, in your theme, you need to put the following code in the file
-category-blog.php if it exists or category.php if category-blog.php doesn't exist where you want the index to appear:
-<?php azindex_category(); ?>
-Then you also need to go into the category and change the settings as shown in screenshot 5.
-
-You can also index pages:
-[azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="page"]
-
-Also works with WooCommerce:
-[azindex index="A-E,F-J,K-M,N-R,S-W,X-Z,0,1,2,3,4,5,6,7,8,9" posttype="product"]
-
-You can also define what to search, default is the first letter of the post or page title:
-
-[azindex filter="title"] -> Filters on first letter of title
-
-[azindex filter="content"] -> Filters on first letter of content
-
-[azindex filter="excerpt"] -> Filters on first letter of the excerpt
-
-[azindex filter="slug"] -> Filters on first letter of the slug
-
-If you also want to generate output, rather than filter existing posts you have to use the shortcode
-[azindex content="true"]
-
-If you want to list posts from your site on a page from a specific category as well you can do so like this:
-[azindex content="true" category="post-listing"]
-
-Or for all categories :
-[azindex content="true"]
-
-There is also a built in custom post type called "A-Z Index Posts" on the admin side that you can add items to and then list on the front page as follows:
-[azindex content="true" posttype="azindexcustom"]
-
-or for a listing all custom categories:
-[azindex content="true" posttype="azindexcustom"]
-
-If you have a custom post type, you can do the following:
-[azindex content="true" category="your-custom-category-name" posttype="my-post-type"]
-
-You can also specify pagination by putting in postcount parameter which represents a number of posts to break on, e.g.
-[azindex content="true" postcount="4"]
-
-You can create your own templates for various uses. In your theme create a folder called BEMOAZIndex and copy the file templates/listing.php in there. You can clone this and then specify other template names as follows:
-[azindex content="true" template="bibliography.php"]
-
-There are css styles that you can override in your own template.
-
-There are also 2 widgets, the index widget and the index output widget that replicate the functionality discussed here.
-
-To remove the watermark, you need to buy the pro version.
 == Installation ==
 This plugin is installed in the standard way.
 
