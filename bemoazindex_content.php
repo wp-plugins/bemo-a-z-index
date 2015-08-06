@@ -3,11 +3,11 @@
 
 function getAZIndexContent($settings)
 {
-
+/*
 	echo '<pre>';
 	print_r($settings);
 	echo '</pre>';
-	
+*/	
 /*	
 $args = array( 
   
