@@ -20,7 +20,7 @@ This plugin works in 3 situations now:
 2. An existing category page (e.g. a blog category)
 3. A blank page that you want to list something in WordPress on.
 
-For more detailed info, please visit : http://www.bemoore.com/products/wordpress-plugin-free/bemo-a-z-index/
+For more detailed info, please visit : http://www.bemoore.com/bemo-a-z-index-pro/
 
 == Installation ==
 This plugin is installed in the standard way.
