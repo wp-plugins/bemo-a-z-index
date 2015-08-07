@@ -62,6 +62,9 @@ You can put it in wp-content/themes/YourTheme/bemo-a-z-index and refer to it in 
 5. Category filter
 
 == Changelog ==
+= 1.0.6 =
+* Left called in when content printed
+
 = 1.0.5 =
 * Changed names of functions from add_button and register_button to azindex_add_button etc to stop conflicts
 * Fixed content filtering
