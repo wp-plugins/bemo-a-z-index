@@ -6,7 +6,7 @@
 Plugin Name: BEMO A-Z Index
 Plugin URI: http://www.bemoore.com/bemo-a-z-index-pro/
 Description: This is a simple plugin that provides an A-Z index of the posts displayed on a particular page based on the post title.
-Version: 1.0.4
+Version: 1.0.5
 Author: Bob Moore (BeMoore Software)
 Author URI: http://www.bemoore.com
 License: GPL2
@@ -172,6 +172,7 @@ function azindex_get_index($atts)
 		echo $retval;
 		require_once("bemoazindex_content.php");
 		
+	
 		$settings['azindex'] = $azindex;
 		getAZIndexContent($settings);
 		return "";
@@ -201,15 +202,17 @@ function azindex_posts_where( $where , &$wp_query )
 	//Have to use $_REQUEST as get_query_var isn't reliable
 	$azindex = isset($_REQUEST['azindex']) ? $_REQUEST['azindex'] : '';
 	$filter = isset($_REQUEST['filter']) ? $_REQUEST['filter'] : 'title';
-	$target = isset($_REQUEST['target']) ? (int)$_REQUEST['target'] : 1;
 	$debug = isset($_REQUEST['debug']) ? true : false;
 	$content = isset($_REQUEST['content']) ? true : false;
 //	$ignoreprefixes = isset($_REQUEST['ignoreprefixes']) ? $_REQUEST['ignoreprefixes'] : '';
 
+
+	if($content)
+		$target = isset($_REQUEST['target']) ? (int)$_REQUEST['target'] : 3;
+	else
+		$target = isset($_REQUEST['target']) ? (int)$_REQUEST['target'] : 1;
+
 	//We are generating the content ourselves - no need to change anything here
-	//if($content)
-	//	return $where;
-		
 	if($filter == 'slug')
 		$dbfilter = 'name';
 	else
@@ -232,6 +235,9 @@ function azindex_posts_where( $where , &$wp_query )
 				
 			if($target == $counter)
 			{	
+				if($content)
+					echo 'called';
+				
 				if(strlen($azindex) == 1)
 					$where .= " AND {$wpdb->posts}.post_".$dbfilter." LIKE '".esc_sql($azindex)."%'";
 				else if(strlen($azindex) == 3)

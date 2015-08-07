@@ -43,14 +43,16 @@ You should put your artists in A-Z Index Posts (left sidebar) and set the featur
 
 Then make a page called Artists (or whatever you want to call it).
 
-Then put the following on that page:
+Then use the A-Z Index button on the Page editor, click "Display Content" and set the Post Type to azindexcustom.
 
+It should generate something like this:
 [azindex content="true" posttype="azindexcustom"]
 
-
 The first code will display the A-Z for all categories.  The second one will display the actual listings.
-In order to get the format you want, you would need to know something about PHP to get the picture appearing etc. where you could make a file like listing.php in the templates subdir.
 
+In order to get the format you want, you would need to know something about PHP to get the picture appearing etc. 
+where you could make a file like listing.php in the templates subdirectory of your theme and refer to that.
+You can put it in wp-content/themes/YourTheme/bemo-a-z-index and refer to it in the dialog.
 
 == Screenshots ==
 1. Sample of the A-Z Index listing in action
@@ -60,6 +62,10 @@ In order to get the format you want, you would need to know something about PHP 
 5. Category filter
 
 == Changelog ==
+= 1.0.5 =
+* Changed names of functions from add_button and register_button to azindex_add_button etc to stop conflicts
+* Fixed content filtering
+
 = 1.0.4 =
 * Removed debugging message that was causing issues
 
